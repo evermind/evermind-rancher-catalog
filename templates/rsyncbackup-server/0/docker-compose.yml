@@ -16,4 +16,7 @@ services:
       io.rancher.scheduler.affinity:host_label: ${var_host_label}
       {{- end}}
     volumes:
-      ${var_host_storage_path}:/data
+      - ${var_host_storage_path}:/data
+      - /etc/localtime:/etc/localtime
+    ports:
+      - ${var_public_port}:22

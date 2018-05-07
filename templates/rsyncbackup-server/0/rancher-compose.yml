@@ -19,7 +19,12 @@
       default: /data/rsyncbackup
       type: "string"
       required: true
+    - variable: var_public_port
+      label: "Public SSH Port"
+      default: 2201
+      type: "int"
+      required: true
     - variable: var_host_label
-      label: "Label of host where the backup-server should run"
+      label: "Label of host where the backup-server should run (e.g. host=backup1.mydomain.com)"
       type: "string"
       required: false
