@@ -7,7 +7,11 @@
   uuid: traefik-local-0
   questions:
     - variable: var_extra_args
-      label: "Extra arguments for traefik daemon (e.g. Let's encrypt DNS credentials)"
+      label: "Extra arguments for traefik daemon (e.g. Let's encrypt DNS config)"
+      type: "multiline"
+      required: false
+    - variable: var_extra_env
+      label: "Extra environment for traefik daemon (e.g. Let's encrypt DNS credentials)"
       type: "multiline"
       required: false
     - variable: var_host_storage_path
