@@ -1,0 +1,44 @@
+---
+
+version: '2'
+
+services:
+  traefik:
+    image: traefik:1.6.0
+    command: |
+      -c /dev/null
+      --api
+      --logLevel=INFO
+      --rancher
+      --rancher.domain=rancher.localhost
+      --rancher.exposedbydefault=false
+      --rancher.metadata=true
+      --rancher.enableServiceHealthFilter=true
+      {{- if ne .Values.var_service_tag "" }}
+      --rancher.constraints=tag==${var_service_tag}
+      {{- end}}
+      --entryPoints='Name:http Address::80 Redirect.EntryPoint:https'
+      --entryPoints='Name:https Address::443 TLS Compress:true'
+      --defaultentrypoints=http,https
+      --acme
+      --acme.onHostRule=true
+      --acme.email=test@example.com
+      --acme.storage=/data/acme.json
+      --acme.entryPoint=https
+      --acme.httpChallenge.entryPoint=http
+      ${var_extra_args}
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
+      io.rancher.scheduler.global: 'true'
+      {{- if ne .Values.var_host_label "" }}
+      io.rancher.scheduler.affinity:host_label: ${var_host_label}
+      {{- end}}
+      io.rancher.container.agent.role: environment
+      io.rancher.container.create_agent: true
+    volumes:
+      - ${var_host_storage_path}:/data
+      - /etc/localtime:/etc/localtime
+    ports:
+      - ${bind_ip}:80:80
+      - ${bind_ip}:443:443

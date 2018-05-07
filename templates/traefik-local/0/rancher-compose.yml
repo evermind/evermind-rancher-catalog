@@ -1,0 +1,32 @@
+---
+
+.catalog:
+  name: "Traefik (local data, non-ha)"
+  description: "Deployment of traefik with local data (non-ha)"
+  version: "1"
+  uuid: traefik-local-0
+  questions:
+    - variable: var_extra_args
+      label: "Extra arguments for traefik daemon (e.g. Let's encrypt DNS credentials)"
+      type: "multiline"
+      required: false
+    - variable: var_host_storage_path
+      label: "Storage path on the host"
+      default: /data/rancher-data/{{ .Stack.Name }}
+      type: "string"
+      required: true
+    - variable: var_service_tag
+      label: "Tag for services that are exposed by this traefik instance"
+      type: "string"
+      default: public
+      required: false
+    - variable: var_host_label
+      label: "Label of hosts where traefik should run"
+      type: "string"
+      default: traefik.entrypoint=true
+      required: false
+    - variable: bind_ip
+      label: "IP on the host to bind on"
+      type: "string"
+      default: 0.0.0.0
+      required: false
