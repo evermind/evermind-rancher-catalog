@@ -43,6 +43,6 @@ services:
       - ${bind_ip}:80:80
       - ${bind_ip}:443:443
     {{- if ne .Values.var_extra_env "" }}
-    environment: >-
+    environment: |
       ${var_extra_env}
     {{- end}}
