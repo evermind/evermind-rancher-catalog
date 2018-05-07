@@ -8,7 +8,7 @@
   questions:
     - variable: var_backup_clients
       label: "Allowed clients"
-      description: |
+      description: >
         A list of allowed clients an their public ssh keys (one per line).
         Format: CLIENT_NAME:KEY-TYPE:KEY
         Example: my-backup-client.com:ssh-rsa:AAAA[...]hLxzt==
