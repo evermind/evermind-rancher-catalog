@@ -1,0 +1,19 @@
+---
+
+version: '2'
+
+services:
+
+  rsyncbackup-server:
+    image: evermind/rsyncbackup-server:latest
+    environment:
+      BACKUP_CLIENTS: >-
+        ${var_backup_clients}
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
+      {{- if ne .Values.var_host_label "" }}
+      io.rancher.scheduler.affinity:host_label: ${var_host_label}
+      {{- end}}
+    volumes:
+      ${var_host_storage_path}:/data

@@ -1,0 +1,25 @@
+---
+
+.catalog:
+  name: "RSync backup server"
+  description: "Backup via rsync - server side"
+  version: "1"
+  uuid: rsyncbackup-server-0
+  questions:
+    - variable: var_backup_clients
+      label: "Allowed clients"
+      description: |
+        A list of allowed clients an their public ssh keys (one per line).
+        Format: CLIENT_NAME:KEY-TYPE:KEY
+        Example: my-backup-client.com:ssh-rsa:AAAA[...]hLxzt==
+      type: "multiline"
+      required: true
+    - variable: var_host_storage_path
+      label: "Storage path on the host"
+      default: /data/rsyncbackup
+      type: "string"
+      required: true
+    - variable: var_host_label
+      label: "Label of host where the backup-server should run"
+      type: "string"
+      required: false
